@@ -18,8 +18,7 @@
     document.body.appendChild(target);
 
     // Focus, select the text, copy it, and then remove the fake target.
-    target.focus();
-    target.setSelectionRange(0, target.value.length);
+    target.select();
     const result = document.execCommand('copy');
     document.body.removeChild(target);
 
