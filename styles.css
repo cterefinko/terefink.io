@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'Monoid Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url('monoid.woff2') format('woff2');
+}
+
+body {
+  align-items: center;
+  background: url('bg.png');
+  display: flex;
+  font-family: "Monoid Regular", monospace;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.address.link:hover {
+  border-bottom: #333 solid 1px;
+}
+
+.offscreen {
+  left: -9999px;
+  position: absolute;
+  top: 0;
+}
+
+.toast {
+  background-color: #333;
+  border-radius: 2px;
+  bottom: 30px;
+  color: #fff;
+  font-size: 17px;
+  min-width: 200px;
+  padding: 16px;
+  position: fixed;
+  text-align: center;
+  visibility: hidden;
+}
+
+.toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
