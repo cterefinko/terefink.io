@@ -13,8 +13,17 @@
 
     // Create a fake textarea to copy from.
     const target = document.createElement('textarea');
-    target.textContent = email;
+    target.value = email;
     target.classList = 'offscreen';
+    // Prevent zooming on iOS.
+    target.style.fontSize = '12pt';
+    // Move element out of screen horizontally.
+    target.style.position = 'absolute';
+    target.style.left = '-9999px';
+    // Move element to the same position vertically
+    const yPosition = window.pageYOffset || document.documentElement.scrollTop;
+    target.style.top = yPosition + 'px';
+    target.setAttribute('readonly', '');
     document.body.appendChild(target);
 
     // Focus, select the text, copy it, and then remove the fake target.
