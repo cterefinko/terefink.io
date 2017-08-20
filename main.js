@@ -1,51 +1,34 @@
 (() => {
   'use strict';
 
-  const addressEl = document.getElementsByClassName('address')[0];
-  function copyAddress() {
-    const email = atob('IGN0ZXJlZmlua29AZ21haWwuY29tIA==').trim();
+  const Css = {
+    ADDRESS: 'address',
+    LINK: 'link',
+    TOAST: 'toast',
+    TOAST_SHOW: 'show'
+  };
+  const COPIED_TEXT = 'copied';
+  const getElByClass = (class) => document.getElementsByClassName(class)[0];
+  const getEmailFn = () => atob('IGN0ZXJlZmlua29AZ21haWwuY29tIA==').trim();
 
-    // Update the element to have the email and stop listening.
-    addressEl.textContent = email;
-    addressEl.classList.remove('link');
-    addressEl.removeEventListener('touchend', copyAddress);
-    addressEl.removeEventListener('click', copyAddress);
-
-    // Create a fake textarea to copy from.
-    const target = document.createElement('textarea');
-    target.value = email;
-    target.classList = 'offscreen';
-    // Prevent zooming on iOS.
-    target.style.fontSize = '12pt';
-    // Move element out of screen horizontally.
-    target.style.position = 'absolute';
-    target.style.left = '-9999px';
-    // Move element to the same position vertically
-    const yPosition = window.pageYOffset || document.documentElement.scrollTop;
-    target.style.top = yPosition + 'px';
-    target.setAttribute('readonly', '');
-    document.body.appendChild(target);
-
-    // Focus, select the text, copy it, and then remove the fake target.
-    target.focus();
-    target.setSelectionRange(0, target.value.length);
-    const result = document.execCommand('copy');
-    document.body.removeChild(target);
-
-    if (result) {
-      showToast('copied');
-    }
-  }
-  addressEl.addEventListener('touchend', copyAddress);
-  addressEl.addEventListener('click', copyAddress);
+  const addressEl = getElByClass(Css.ADDRESS);
+  const clipboard = new Clipboard(addressEl, {
+    text: getEmailFn
+  });
+  clipboard.on('success', () => {
+    addressEl.textContent = getEmailFn();
+    addressEl.classList.remove(Css.LINK);
+    clipboard.destroy();
+    showToast(COPIED_TEXT);
+  });
 
   function showToast(content) {
-    const toast = document.getElementsByClassName('toast')[0];
+    const toast = getElByClass(Css.TOAST);
     toast.textContent = content;
-    toast.classList.add('show');
+    toast.classList.add(Css.TOAST_SHOW);
 
     setTimeout(() => {
-      toast.classList.remove('show');
+      toast.classList.remove(Css.TOAST_SHOW);
     }, 2900);
   }
 })();
