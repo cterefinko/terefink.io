@@ -8,7 +8,7 @@
     TOAST_SHOW: 'show'
   };
   const COPIED_TEXT = 'copied';
-  const getElByClass = (class) => document.getElementsByClassName(class)[0];
+  const getElByClass = (name) => document.getElementsByClassName(name)[0];
   const getEmailFn = () => atob('IGN0ZXJlZmlua29AZ21haWwuY29tIA==').trim();
 
   const addressEl = getElByClass(Css.ADDRESS);
